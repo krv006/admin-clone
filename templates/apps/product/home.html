@@ -8,18 +8,19 @@
             <div class="container">
                 <div class="row">
                     {% for category in categories %}
-                    	
-                    
+
+
                     <div class="col-md-2 col-4">
                         <a class="siteCategories--item" href="/explore/9245">
-                            <img alt="Elektronika" height="100"
+                            <img alt="{{ category.name }}" height="100"
                                  src="{{ category.image.url }}"
                                  width="100"> <br>
                             <span> {{ category.name }} </span>
                         </a>
                     </div>
-                    
+
                     {% endfor %}
+                
                 </div>
             </div>
         </div>
@@ -31,7 +32,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="mb-3">
-                            <a href="/explore?sort=new">Barchasini ko'rish</a>
+                            <a href="{% url 'product-list-page' %}">Barchasini ko'rish</a>
                         </div>
                     </div>
                 </div>
@@ -293,7 +294,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="mb-3">
-                            <a href="/explore?sort=rating"> Barchasini korish </a>
+                            <a href="{% url 'product-list-page' %}"> Barchasini korish </a>
                         </div>
                     </div>
                 </div>

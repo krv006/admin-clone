@@ -19,8 +19,8 @@ class ReviewStackedInline(admin.StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price')
-    inlines = ImageProductStackedInline, ReviewStackedInline
+    list_display = ('name', 'price')
+    inlines = ImageProductStackedInline,
 
 
 @admin.register(Category)

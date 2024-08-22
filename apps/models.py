@@ -2,7 +2,7 @@ import uuid
 
 from django.db import models
 from django.db.models import Model, DateTimeField, UUIDField, CharField, SlugField, ImageField, DecimalField, \
-    ForeignKey, CASCADE, TextChoices, EmailField, TextField
+    ForeignKey, CASCADE, TextChoices, EmailField, TextField, BooleanField
 
 from django.utils.text import slugify
 
@@ -15,15 +15,15 @@ class CreatedAtBase(Model):
         abstract = True
 
 
-class Base(CreatedAtBase):
-    # id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False) # postgres da ishlatiladi
-    id = UUIDField(default=uuid.uuid4, primary_key=True)  # sqlite uchun basic
+# class Base(CreatedAtBase):
+#     # id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False) # postgres da ishlatiladi
+#     id = UUIDField(default=uuid.uuid4, primary_key=True)  # sqlite uchun basic
+#
+#     class Meta:
+#         abstract = True
 
-    class Meta:
-        abstract = True
 
-
-class BaseSlugModel(Base):
+class BaseSlugModel(CreatedAtBase):
     name = CharField(max_length=255)
     slug = SlugField(unique=True)
 
@@ -46,7 +46,10 @@ class Category(BaseSlugModel):
 
 class Product(BaseSlugModel):
     name = CharField(max_length=255)
-    price = DecimalField(max_digits=7, decimal_places=2, default=0)
+    price = DecimalField(max_digits=15, decimal_places=2, default=0)
+    short_description = TextField()
+    long_description = TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
 
 
 class ImageProduct(Model):
@@ -78,7 +81,6 @@ class Order(CreatedAtBase):
     name = CharField(max_length=50)
     phone_number = CharField(max_length=50)
     region = CharField(max_length=255, choices=Region.choices)
-
 
 
 class Review(Model):

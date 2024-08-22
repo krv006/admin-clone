@@ -1,0 +1,408 @@
+{% extends 'apps/include_base/base.html' %}
+
+{% block body %}
+    <main class="client-template">
+        <section class="main">
+
+            <div class="container py-3">
+                <div class="row align-items-center">
+                    <div class="col my-3 pr-3">
+                        <h1 class="h4 font-weight-bold mb-0">{{ product.short_description }}</h1>
+                    </div>
+                    <div class="col-auto my-3 text-right">
+                        <strong class="position-price1">
+                            {{ product.price }} so'm
+                        </strong>
+                        <div class="text-warning">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="orderForm"
+                      data-price="71000"
+                      data-request="onOrder"
+                      data-request-flash
+                      data-request-success='
+                $(this).find(".needclear").val("");
+                fbq("track", "Purchase", {currency: "uzs", value: $(this).data("price") });
+              '
+                >
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="owl-carousel owl-theme content_linear_card_body_indicators">
+                                {% if product.video.all %}
+                                    <div class="item-video">
+                                        <video width="100%" controls>
+                                            <source src="{{ product.video.all.video }}" type="video/mp4">
+                                            Sizning brovseringiz ushbu videoni oqiy olmaydi
+                                        </video>
+                                    </div>
+                                {% else %}
+                                    <div class="item">
+                                        <img loading="lazy" class="lazyload"
+                                             src="https://100k.uz/themes/stock/assets/img/loading.gif"
+                                             data-src="{{ product.images.first.image.url }}" alt="card"/>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="productShop d-none d-md-block d-lg-block d-xl-block mt-4">
+                                <div class="row align-items-center">
+                                    <div class="col-2">
+                                        <a href="/store/103"><img
+                                                src="https://100k.uz/themes/stock/assets/img/d-avatar.png"
+                                                alt="clothes"/></a>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <a href="/store/103"> Greatstuff shop </a>
+                                        <div class="text-warning">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="/store/103" class="sk-btn sk-btn--hover">Do'konning sahifasi</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="orderFormSection" class="col-md-6 pl-md-4 mb-4">
+                            <div class="orderForm sk-form d-flex flex-column justify-content-between"
+                                 style="min-height:100%;">
+                                <div>
+                                    <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection"> Buyurtma
+                                        berish</a></h2>
+
+                                    <p class="mb-3"> Mahsulot narxi: <strong
+                                            class="pricetag position-price2">{{ product.price }} so'm</strong></p>
+
+                                    <div class="alert alert-info">
+                                        <strong>Yetqazib berish mutlaqo bepul</strong>
+                                        tuman markazidagi qabul qilish punktigacha.
+                                        To'lovni mahsulotni olgandan so'ng amalga oshirasiz.
+
+                                    </div>
+                                </div>
+
+                                <div class="my-3">
+                                    <input type="hidden" name="product_id" value="2715"/>
+                                    <input type="hidden" name="stream_id" value=""/>
+
+                                    <input type="hidden" name="product_item_id" value="2850"/>
+
+                                    <div class="form-group">
+                                        <input class="form-control needclear" name="client_full_name"
+                                               placeholder="Ismingiz" type="text"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input class="my-phone-mask form-control needclear" name="customer_phone"
+                                               id="customer_phone" placeholder="Telefon raqamingiz" type="text"/>
+                                    </div>
+
+                                    <div id="partialCountryState">
+                                        <div class="form-group">
+                                            <select required class="form-control" name="region_id">
+                                                <option value="" selected="selected">Hududni tanlang ⬇</option>
+                                                <option value="13">Toshkent shahri</option>
+                                                <option value="12">Andijon</option>
+                                                <option value="11">Buxoro</option>
+                                                <option value="1">Fargona</option>
+                                                <option value="10">Jizzax</option>
+                                                <option value="6">Namangan</option>
+                                                <option value="7">Navoiy</option>
+                                                <option value="8">Qashqadaryo</option>
+                                                <option value="9">Qoraqalpogiston</option>
+                                                <option value="5">Samarqand</option>
+                                                <option value="3">Sirdaryo</option>
+                                                <option value="4">Surxondaryo</option>
+                                                <option value="2">Toshkent viloyati</option>
+                                                <option value="14">Xorazm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <button
+                                                        data-attach-loading type="submit" style="max-width: 100%"
+                                                        class="sk-btn sk-btn--primary sk-btn--block sk-btn--lg">
+                                                    Buyurtma berish
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#productDescription" class="nav-link active" data-toggle="tab">Batafsil ma'lumot</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#productReviews" class="nav-link" data-toggle="tab"> Xaridorlar fikrlari </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="productDesc py-5">
+                <div class="container px-3">
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="productDescription">
+                            <div>{{ product.long_description }}</div>
+                        </div>
+                        <div class="tab-pane fade" id="productReviews">
+                            <div class="row align-items-center">
+                                <div class="col mb-4">
+                                    <h2 class="font-weight-bold">Mijozlar tomonidan qoldirilgan izohlar</h2>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="mb-4">
+                                        <a href="#" data-toggle="modal" data-target="#exampleModal">Izoh qoldirish</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul id="productReviewsList" class="commentsList">
+                                <p class="text-center text-muted" style="font-size: 19px;"><br><br> Ushbu mahsulotga
+                                    izohlar hali qoldirilmagan. </p>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <!-- Modal -->
+        <form data-request-flash data-request="onAddReview"
+              data-request-success="$(this).find('input.form-control').val('')"
+              data-request-update="'product/reviews-list': '#productReviewsList'"
+              class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> Izoh qoldirish </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="product_id" value="2715">
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ismingiz</label>
+                            <input type="text" name="author" class="form-control" id="exampleInputEmail1"
+                                   placeholder="Ismingizni kiriting">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Izohingiz</label>
+                            <textarea name="text" placeholder="Izohingizni kiriting"
+                                      class="form-control" id="exampleInputPassword1"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating5" value="5"
+                                       checked>
+                                <label class="form-check-label" for="rating5">
+                                    Ajoyib
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
+                                <label class="form-check-label" for="rating4">
+                                    Yaxshi
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                                <label class="form-check-label" for="rating3">
+                                    Qoniqarli
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
+                                <label class="form-check-label" for="rating2">
+                                    Yomon
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
+                                <label class="form-check-label" for="rating1">
+                                    Juda yomon
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-primary">Izoh qoldirish</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <style>
+            .form-group .btn-danger {
+                background-color: #d8d8d8;
+                color: black;
+            }
+
+            .position-btn-group {
+                row-gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .position-btn {
+                font-size: 14px;
+                padding: 5px;
+                background-color: white !important;
+                color: #0b2e13 !important;
+                border: 1px solid rgba(0, 0, 0, 0.2) !important;
+                box-shadow: none !important;
+                font-weight: 500;
+            }
+
+            .position-btn.active {
+                border: 2px solid #0b2e13 !important;
+                background-color: #eee !important;
+            }
+
+
+            .siteFooter .container, .topLine {
+                display: none;
+            }
+
+            /* hide search and center logo on mobile */
+            @media (max-width: 767px) {
+                .col-logo {
+                    flex: 1 0 auto;
+                    text-align: center;
+                }
+
+                .col-search {
+                    display: none !important;
+                }
+            }
+
+        </style>
+
+    </main>
+
+    <footer class="siteFooter mt-auto">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg col-sm-6">
+                    <ul class="nav flex-column">
+                        <li>
+                            <a href="/profile" class="nav-link"> Mening kabinetim </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg col-sm-6">
+                    <ul class="nav flex-column">
+                        <li>
+                            <a href="/pages/about" class="nav-link"> Biz haqimizda </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg col-sm-6">
+                    <ul class="nav flex-column">
+                        <li>
+                            <a href="/pages/contacts" class="nav-link"> Aloqa uchun </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg col-sm-6">
+                    <ul class="nav flex-column">
+                        <li>
+                            <a href="/pages/privacy-policy" target="_blank" class="nav-link">Ommaviy oferta</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container py-2">
+                <div class="row">
+                    <div class="col-auto">
+                        2016-2021 - 100K.UZ
+                    </div>
+                    <div class="col"></div>
+                    <div class="col-auto">
+                        Barcha huquqlar himoyalangan
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/43236b6dfa.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/imask"></script>
+
+    <script src="https://100k.uz/themes/stock/assets/js/bundle.js"></script>
+    <script src="https://100k.uz/themes/stock/assets/lazysizes/lazysizes.min.js"></script>
+    <script src="https://100k.uz/themes/stock/assets/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="https://100k.uz/themes/stock/assets/js/custom.js"></script>
+    <script src="/modules/system/assets/js/framework-extras.js"></script>
+    <link rel="stylesheet" property="stylesheet" href="/modules/system/assets/css/framework-extras.css">
+    <script>
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            video: true,
+            animateOut: 'fadeOut',
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true,
+        });
+        let inputs = document.querySelectorAll(".position-btn input");
+        const price1 = document.querySelector(".position-price1")
+        const price2 = document.querySelector(".position-price2");
+
+        inputs.forEach(input => {
+            input.addEventListener("click", function (e) {
+                let price = e.target.getAttribute("data-price");
+                price = Intl.NumberFormat().format(price);
+                price1.innerHTML = `${price} so'm`;
+                price2.innerHTML = `${price} so'm`;
+            });
+        })
+    </script>
+{% endblock %}

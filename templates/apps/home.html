@@ -7,158 +7,19 @@
         <div class="siteCategories pt-5 pb-3">
             <div class="container">
                 <div class="row">
+                    {% for category in categories %}
+                    	
+                    
                     <div class="col-md-2 col-4">
                         <a class="siteCategories--item" href="/explore/9245">
                             <img alt="Elektronika" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/zI9pQe81p9guKwyRKkKtPNckk8dcBTmL1LNMsVLu.png.webp"
+                                 src="{{ category.image.url }}"
                                  width="100"> <br>
-                            <span> Elektronika </span>
+                            <span> {{ category.name }} </span>
                         </a>
                     </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9335">
-                            <img alt="Maishiy texnika" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/q4UfiUFG85zdjRIYZsZ5ue2LNrT3vUXT3Hu3miZ1.png.webp"
-                                 width="100"> <br>
-                            <span> Maishiy texnika </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9386">
-                            <img alt="Kiyim" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/JJIBFnLHf55eqeMWuDUJOkhSIx0JvlbqbtOZgr6I.png.webp"
-                                 width="100"> <br>
-                            <span> Kiyim </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9443">
-                            <img alt="Poyabzallar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/9EzuylLILhgkVo1QISXHpXpd9WnWIeSG37aHo0Cr.png.webp"
-                                 width="100"> <br>
-                            <span> Poyabzallar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9501">
-                            <img alt="Aksessuarlar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/0XMzvntSF82VSJwpzEDGRixDA7NYn0w412esrkDn.png.webp"
-                                 width="100"> <br>
-                            <span> Aksessuarlar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9569">
-                            <img alt="Goʻzallik va parvarish" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/l2can64tpz5eySuo2uhYRGryak6ipYUIZKak5NQp.png.webp"
-                                 width="100"> <br>
-                            <span> Goʻzallik va parvarish </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9656">
-                            <img alt="Salomatlik" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/IG5wxdf3QMv8o9ADHpSnBlFHyHzMDbwPHYvgQtUA.png.webp"
-                                 width="100"> <br>
-                            <span> Salomatlik </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9718">
-                            <img alt="Uy-roʻzgʻor buyumlari" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/CvZ83eL8UbiQbVndeXGIPKhiMmOCHBLahrXuQg6N.png.webp"
-                                 width="100"> <br>
-                            <span> Uy-roʻzgʻor buyumlari </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9820">
-                            <img alt="Qurilish va taʼmirlash" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/BrqBDxa1UFgyeyoYbuCklNnghQ53F4TFZR9QcjG2.png.webp"
-                                 width="100"> <br>
-                            <span> Qurilish va taʼmirlash </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9916">
-                            <img alt="Avtotovarlar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/7hZMoyTYRtNgWfDX72cyi2S2Vc7PSvPOmn1VAHBe.png.webp"
-                                 width="100"> <br>
-                            <span> Avtotovarlar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10043">
-                            <img alt="Bolalar tovarlari" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/O1pckVmoMonQyOinj9TWHSvyz2VcduuoMQorO8jB.png.webp"
-                                 width="100"> <br>
-                            <span> Bolalar tovarlari </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10119">
-                            <img alt="Xobbi va ijod" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/UWZjenO5UcTaE6ROkScB5gnAr6bAxVXhPglbAGVw.png.webp"
-                                 width="100"> <br>
-                            <span> Xobbi va ijod </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10194">
-                            <img alt="Sport va hordiq" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/RTsGtnJy9jTwrcDxPoHgg33tMBnFfMJ5E1eJ8irA.png.webp"
-                                 width="100"> <br>
-                            <span> Sport va hordiq </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10294">
-                            <img alt="Oziq-ovqat mahsulotlari" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/OSqitvOENDK5CQAZv8CoYMOKijuPAscJcIy50wF5.png.webp"
-                                 width="100"> <br>
-                            <span> Oziq-ovqat mahsulotlari </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10378">
-                            <img alt="Maishiy kimyoviy moddalar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/jbUIzUcVfcVgmBigStBifJ3o3zkAW5gqhYFAznfv.png.webp"
-                                 width="100"> <br>
-                            <span> Maishiy kimyoviy moddalar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10420">
-                            <img alt="Kanselyariya tovarlari" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/LgvPvK1oEU5r6LbgczOn4vxEWaIHzbS24x2eJjjN.png.webp"
-                                 width="100"> <br>
-                            <span> Kanselyariya tovarlari </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10534">
-                            <img alt="Hayvonlar uchun tovarlar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/K31SiMIfIlD4VJ3k8GiNCkA26RTLe7iDRoUjgfKA.png.webp"
-                                 width="100"> <br>
-                            <span> Hayvonlar uchun tovarlar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10601">
-                            <img alt="Kitoblar" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/wUSU957NkmYZQnrWZdbUEdirXVpEOFVmjOP713NC.png.webp"
-                                 width="100"> <br>
-                            <span> Kitoblar </span>
-                        </a>
-                    </div>
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/10689">
-                            <img alt="Dacha, bogʻ va tomorqa" height="100"
-                                 src="https://100k.website.yandexcloud.net/resized/250x250/categories/image/IyDvuhsl5KbLuBfH6UuIUHJo9zr0zcylYSRnXtde.png.webp"
-                                 width="100"> <br>
-                            <span> Dacha, bogʻ va tomorqa </span>
-                        </a>
-                    </div>
+                    
+                    {% endfor %}
                 </div>
             </div>
         </div>

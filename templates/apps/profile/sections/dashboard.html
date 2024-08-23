@@ -1,0 +1,123 @@
+{% extends 'apps/profile/base.html' %}
+{% load static %}
+{% block body %}
+    <div class="page-wrapper">
+        <main class="page-content">
+            <div class="dashboard">
+                <div class="container">
+                    <div class="top">
+                        <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             class="profile-img" style="height: 35px; width: 35px;">
+                            <path fill-rule="evenodd"
+                                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                        <p class=""></p>
+                        <p class="subtitle" style="padding-top: 10px;"> Saytda "2024-08-21" chi sanadan </p>
+                    </div>
+                    <div class="balance-card"><p>Hisobingizda</p>
+                        <h2>0 bonus</h2>
+                        <div class="space-b"><p>Tahminiy balans: 0 bonus</p><h4>100k</h4></div>
+                    </div>
+                    <div class="statistics"></div>
+                    <div class="category__cards"><a
+                            href="https://telegra.ph/100kuz-Adminlar-uchun-qollanma-11-15"
+                            class="category__card" target="_blank" rel="noreferrer">
+                        <div class="category__card-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                        <p class="category__card-text">Dastur haqida</p></a><a class="category__card"
+                                                                               href="/promocode">
+                        <div class="category__card-icon"><i class="fa-solid fa-users"></i></div>
+                        <p class="category__card-text">Doimiy mijozlar</p></a><a class="category__card"
+                                                                                 href="/request">
+                        <div class="category__card-icon"><i class="fa-solid fa-list-ul"></i></div>
+                        <p class="category__card-text">So'rovlar (0)</p></a><a class="category__card"
+                                                                               href="/contest">
+                        <div class="category__card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" class="icon-trophy">
+                                <g id="Frame">
+                                    <path id="Vector"
+                                          d="M13.0049 16.941V19.0029H18.0049V21.0029H6.00488V19.0029H11.0049V16.941C7.05857 16.4489 4.00488 13.0825 4.00488 9.00293V3.00293H20.0049V9.00293C20.0049 13.0825 16.9512 16.4489 13.0049 16.941ZM1.00488 5.00293H3.00488V9.00293H1.00488V5.00293ZM21.0049 5.00293H23.0049V9.00293H21.0049V5.00293Z"
+                                          fill="#F1F606"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="category__card-text">Konkurslar</p></a><a class="category__card"
+                                                                            href="/balance-history">
+                        <div class="category__card-icon"><i class="fa-solid fa-money-bill-1"></i></div>
+                        <p class="category__card-text">Balans tarixi</p></a><a class="category__card"
+                                                                               href="/penalty">
+                        <div class="category__card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <p class="category__card-text">Jarimalar</p></a><a class="category__card"
+                                                                           href="/diagram">
+                        <div class="category__card-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                        <p class="category__card-text">Diagrammalar</p></a><a class="category__card"
+                                                                              href="/charity">
+                        <div class="category__card-icon"><i class="fa-solid fa-box"></i></div>
+                        <p class="category__card-text">Hayriya qutisi</p></a><a class="category__card"
+                                                                                href="/ticket">
+                        <div class="category__card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" crosspilot=""
+                                 foxified="">
+                                <path d="M0 64C0 28.7 28.7 0 64 0H448c35.3 0 64 28.7 64 64V352c0 35.3-28.7 64-64 64H309.3L185.6 508.8c-4.8 3.6-11.3 4.2-16.8 1.5s-8.8-8.2-8.8-14.3V416H64c-35.3 0-64-28.7-64-64V64zM128 240a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm128 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm160-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path>
+                            </svg>
+                        </div>
+                        <p class="category__card-text">Murojatlar</p></a><a href="https://t.me/changelog_100k"
+                                                                            class="category__card"
+                                                                            target="_blank" rel="noreferrer">
+                        <div class="category__card-icon">
+                            <div class="telegram-icon"><i class="fa-brands fa-telegram"></i></div>
+                        </div>
+                        <p class="category__card-text">Reklama postlari</p></a></div>
+                    <div class="dashboard-news">
+                        <div class="news__item p-10 mb-10"><img
+                                src="https://static.100k.uz/news/image/KCkhm0m5uHOrTcmOGvLWdneZOEowXVmpahZh8nV2.png"
+                                alt="">
+                            <div class="news__content"><h2 class="title">Targetchilar uchun Facebook pixelni
+                                oqimga ulash qo'llanmasi.</h2>
+                                <div class="subtitle"><p><strong>Facebook pixel nima uchun kerak?</strong><br>Pixel
+                                    reklamachiga kop qulayliklar yaratadi. Ulardan eng asosiysi bu: Pixel raqami
+                                    oqimga biriktirilgan bolsa va mijoz ushbu oqim orqali kirib, buyurtma
+                                    qoldiradiganda facebook ushbu mahsulotni sotib oladigan kishilar
+                                    statistikasini yigadi va oqim reklamasi usha yigilgan malumotlarga mos
+                                    keladiga insonlarga korsatadi.<br><br><strong>Pixelni oqimga biriktirish
+                                        tartibi:</strong></p>
+                                    <p>&nbsp;Oqimga pixelni biriktirish uchun yaratilgan oqim havolasi oxiriga
+                                        <strong>?pixel=SIZNING_PIXEL_RAQAMINGIZ &nbsp;</strong>ushbu parametr
+                                        qoshilsa kifoya.<br><br>Masalan:&nbsp;<br>Oddiy oqim: <a
+                                                href="https://100k.uz/oqim/1">https://100k.uz/oqim/1</a><br>Pixel
+                                        ulangan oqim: https://100k.uz/oqim/1?pixel=000000000<br>&nbsp;</p></div>
+                                <p class="release_date caption-l"><span class="date">07.06.2023</span><span
+                                        class="time">21:33</span></p></div>
+                        </div>
+                        <div class="news__item p-10 mb-10"><img
+                                src="https://static.100k.uz/news/image/RuSSSzg5mdqoBDeqiF1H8TO6jedSkZRPAC2j8soG.png"
+                                alt="">
+                            <div class="news__content"><h2 class="title">Bepul yetqazish funksiyasi butunlay
+                                saytdan olib tashlanadi.</h2>
+                                <div class="subtitle"><p>Hurmatli adminlar, 25 iyul kuniga qadar “<strong>yetqazib
+                                    berish bepul</strong>” deb olingan oqimlarni yangilashingizni soraymiz. Aks
+                                    holda narxlarda xatoliklar kuzatilishi mumkin.</p></div>
+                                <p class="release_date caption-l"><span class="date">17.06.2023</span><span
+                                        class="time">19:22</span></p></div>
+                        </div>
+                        <div class="news__item p-10 mb-10"><img
+                                src="https://static.100k.uz/news/image/U3hyGBUZt7GqFCA1uZpVuYFBrHDENHCYY9zURV8Z.png"
+                                alt="">
+                            <div class="news__content"><h2 class="title">Mahsulotlarni zaxirasi boyicha malumot
+                                olish usuli</h2>
+                                <div class="subtitle"><p>Mahsulotlarni zaxirasini bilish uchun 1 o'rinda
+                                    mahsulot sotuvchi bilan boglaning.<br>Buning uchun market bolimiga kirib
+                                    kerakli mahsulotni toping va yuqoridagi <strong>skrenda</strong>
+                                    korsatilgandek sotuvchi nomi ustiga bosing.&nbsp;<br>Sotuvchi javob bermagan
+                                    holda 100k chat gruhidagi adminlarga murojat etishingiz mumkin.</p></div>
+                                <p class="release_date caption-l"><span class="date">09.07.2023</span><span
+                                        class="time">03:09</span></p></div>
+                        </div>
+                        <a class="show-all" href="/news">Barchasini ko‘rish</a></div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+

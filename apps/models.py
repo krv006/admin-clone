@@ -1,4 +1,6 @@
-import uuid
+# import uuid
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.models import AbstractUser
 
 from django.db import models
 from django.db.models import Model, DateTimeField, UUIDField, CharField, SlugField, ImageField, DecimalField, \
@@ -30,7 +32,7 @@ class BaseSlugModel(CreatedAtBase):
     class Meta:
         abstract = True
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None, **kwargs):
         self.slug = slugify(self.name)
         while self.__class__.objects.filter(slug=self.slug).exists():
             self.slug += '-1'
@@ -38,6 +40,47 @@ class BaseSlugModel(CreatedAtBase):
 
     def __str__(self):
         return self.name
+
+
+class CustomUserManager(BaseUserManager):
+    def create_user(self, phone_number, password=None, **extra_fields):
+        if not phone_number:
+            raise ValueError('The Phone Number field must be set')
+        user = self.model(phone_number=phone_number, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, phone_number, password, **extra_fields):
+        user = self.create_user(phone_number, password, **extra_fields)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save()
+        return user
+
+
+class User(AbstractUser):
+    # username = models.CharField(
+    #     max_length=150,
+    #     unique=True,
+    #     null=True
+    # )
+
+    class Role(TextChoices):
+        ADMIN = "admin", 'Admin'
+        OPERATOR = "operator", 'Operator'
+        MANAGER = "manager", 'Manager'
+        DRIVER = "driver", 'Driver'
+        USER = "user", 'User'
+
+    username = None
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = []
+    objects = CustomUserManager()
+    role = CharField(max_length=50, choices=Role.choices, default=Role.USER)
+    phone_number = CharField(max_length=12, unique=True)
+    district = ForeignKey('apps.District', CASCADE, related_name='users', null=True)
+    image = ImageField(upload_to='users/')
 
 
 class Category(BaseSlugModel):
@@ -90,6 +133,21 @@ class Review(Model):
     comment_status = TextField()
     created_at = DateTimeField(auto_now_add=True)
     product = ForeignKey('apps.Product', CASCADE, related_name='reviw')
+
+    def __str__(self):
+        return self.name
+
+
+class Region(Model):
+    name = CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class District(Model):
+    name = CharField(max_length=255, unique=True)
+    region = ForeignKey('apps.Region', CASCADE, related_name='districts')
 
     def __str__(self):
         return self.name

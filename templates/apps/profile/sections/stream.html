@@ -1,0 +1,241 @@
+{% extends 'apps/profile/base.html' %}
+{% load static %}
+{% block body %}
+    <style>/* General styles */
+    /* General Styles */
+    .page-wrapper {
+        background-color: #f5f7fa;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .page-content {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Stream Card */
+    .stream__cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .stream-card {
+        background-color: #ffffff;
+        border: 1px solid #e3e6f0;
+        border-radius: 6px;
+        overflow: hidden;
+        transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .stream-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .stream-card__header {
+        background-color: #f8f9fc;
+        padding: 15px;
+        border-bottom: 1px solid #e3e6f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .stream-card__header h2 {
+        font-size: 18px;
+        color: #5a5c69;
+        margin: 0;
+    }
+
+    .stream-card__header .mantine-Badge-root {
+        background-color: #4e73df;
+        color: #fff;
+        border-radius: 12px;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .stream-card__body {
+        padding: 15px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        color: #858796;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        border: 1px solid #d1d3e2;
+        border-radius: 4px;
+        padding: 10px;
+        width: 100%;
+        font-size: 14px;
+        color: #3a3b45;
+        background-color: #f8f9fc;
+    }
+
+    .form-check-label {
+        font-size: 14px;
+        color: #5a5c69;
+    }
+
+    .stream-card__footer {
+        padding: 15px;
+        border-top: 1px solid #e3e6f0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: #f8f9fc;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s ease-in-out;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #4e73df;
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: #2e59d9;
+    }
+
+    .btn-default {
+        background-color: #e2e6ea;
+        color: #858796;
+    }
+
+    .btn-default:hover {
+        background-color: #d1d3e2;
+    }
+
+    .icon svg {
+        fill: #d1d3e2;
+        transition: fill 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .icon svg:hover {
+        fill: #e74a3b;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination a {
+        color: #858796;
+        padding: 8px 12px;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .pagination a:hover {
+        background-color: #f8f9fc;
+    }
+
+    .pagination .selected a {
+        background-color: #4e73df;
+        color: #fff;
+    }
+
+    .pagination svg {
+        fill: #858796;
+    }
+
+    </style>
+    <div class="page-wrapper">
+        <main class="page-content">
+            <div class="stream">
+                <div class="container">
+                    <div class="mantine-1q1idfv"></div>
+                    <h1> Mening havolalarim </h1>
+                    <div class="mantine-1q1idfv"></div>
+                    <div class="stream__cards">
+                        <div class="stream-card ">
+                            <div class="stream-card__header">
+                                <div class="mantine-Badge-root mantine-7io53s" style="background-color: rgb(0, 0, 0);">
+                                    <span class="mantine-h9iq4m mantine-Badge-inner">100%</span></div>
+                                <h2>qwerqwr</h2>
+                                <div class="icon">
+                                    <div class="right-bottom">
+                                        <div class="action__delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="17px"
+                                                 style="cursor: pointer;">
+                                                <path d="M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stream-card__body">
+                                <form>
+                                    <div class="form-group"><label class="form-label " for="input">
+                                        <div>Portativ mini ventilyator Arctic air, havo sovutgich 3 tasi 1 da</div>
+                                    </label><input name="link" type="text" class="form-control " autocomplete="off"
+                                                   maxlength="255" disabled="">
+                                        <p class="form__error"></p></div>
+                                    <div>
+                                        <div class="mantine-wadvlz">
+                                            <div class="form-group">
+                                                <div class="form-check"><input class="form-check-input" type="checkbox"><label
+                                                        class="form-check-label" for="remember">sorovlarni hududsiz
+                                                    qabul qilish</label></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mb-10" style="text-align: end;">22.08.2024 23:26:41</p></form>
+                            </div>
+                            <div class="stream-card__footer bt pt-20 f-c-sb">
+                                <button type="button" class="btn btn-primary">Nusxa ko'chirish</button>
+                                <button type="button" class="btn btn-default"><i class="fa-solid fa-file-import"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination">
+                        <div class="display-records"><p>Ko'rsatilgan ma'lumotlar: 1-1 jami 1</p></div>
+                        <ul role="navigation" aria-label="Pagination">
+                            <li class="previous disabled"><a class=" " tabindex="-1" role="button" aria-disabled="true"
+                                                             aria-label="Previous page" rel="prev"><span
+                                    class="pagination__prev"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                  viewBox="0 0 384 512"><path
+                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                            </li>
+                            <li class="selected"><a rel="canonical" role="button" tabindex="-1"
+                                                    aria-label="Page 1 is your current page" aria-current="page">1</a>
+                            </li>
+                            <li class="next disabled"><a class=" " tabindex="-1" role="button" aria-disabled="true"
+                                                         aria-label="Next page" rel="next"><span
+                                    class="pagination__next"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                  viewBox="0 0 384 512"><path
+                                    d="M362.7 203.9l-159.1 144c-6.125 5.469-15.31 5.469-21.44 0L21.29 203.9C14.73 197.1 14.2 187.9 20.1 181.3C26.38 174.4 36.5 174.5 42.73 180.1L192 314.5l149.3-134.4c6.594-5.877 16.69-5.361 22.62 1.188C369.8 187.9 369.3 197.1 362.7 203.9z"></path></svg></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

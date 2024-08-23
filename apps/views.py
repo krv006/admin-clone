@@ -1,7 +1,14 @@
+import re
+
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.views.generic import TemplateView
 
 from apps.models import Category, Product
+from apps.models import User
 
 
 # Create your views here.
@@ -45,3 +52,64 @@ class ProductDetailDetailView(DetailView):
         if ordering := self.request.GET.get('-ordering'):
             qs = qs.order_by(ordering)
         return qs
+
+
+class ContactView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/contacts.html'
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/profile.html'
+
+
+class AdminDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/dashboard.html'
+
+
+class AdminMarketView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/market.html'
+
+
+class AdminStreamView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/stream.html'
+
+
+class AdminStatisticsView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/statistics.html'
+
+
+class AdminPaymentView(LoginRequiredMixin, TemplateView):
+    template_name = 'apps/profile/sections/payment.html'
+
+
+class CustomLoginView(TemplateView):
+    template_name = 'apps/auth/login.html'
+
+    def post(self, request, *args, **kwargs):
+        phone_number = re.sub(r'\D', '', request.POST.get('phone_number', ''))
+        user = User.objects.filter(phone_number=phone_number).first()
+
+        if len(phone_number) < 10:
+            context = {
+                "messages_error": ["Invalid phone number"]
+            }
+            return render(request, self.template_name, context)
+            # send_email
+
+        if not user:
+            user = User.objects.create_user(phone_number=phone_number, password=request.POST.get('password'))
+            login(request, user)
+            return redirect('home')
+
+        user = authenticate(request, username=user.phone_number, password=request.POST.get('password'))
+        if user:
+            login(request, user)
+            next_url = request.GET.get('next', 'home')
+            return redirect(next_url)
+        else:
+            context = {
+                "messages_error": ["Invalid password"]
+            }
+            return render(request, self.template_name, context)
+
+# TODO celery bn qivoramiz

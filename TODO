@@ -1,0 +1,164 @@
+SERVER BN ISHLASH UCHUN KERAK BOLADI
+
+/etc/nginx/sites-enabled/(nginx_file_nomi)
+
+server {
+    listen       80;
+    server_name  xolmomin.falcon-uz.uz;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+        root /var/www/xolmomin/falcon/backend;
+    }
+
+    location /media/ {
+        root /var/www/xolmomin/falcon/backend;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/xolmomin/falcon/backend/falcon.sock;
+    }
+
+}
+
+
+
+
+
+
+
+/etc/systemd/system/kamron_falcon.service
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/xolmomin/falcon/backend
+ExecStart=/var/www/xolmomin/falcon/venv/bin/gunicorn --workers 3 --bind unix:/var/www/xolmomin/falcon/backend/falcon.sock root.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl start .service
+systemctl enable (service_fayl_nomi).service
+
+
+systemctl start service
+systemctl enable service
+systemctl stop service
+systemctl restart service
+systemctl disable service
+
+
+
+
+1. comp -> github, gitlab, bitbucket -> server
+
+2. comp -> server
+
+3. ci/cd
+
+
+scp file root@IP:/var/www
+scp -P 22007 file root@IP:/var/www
+python3 manage.py runserver 0:8004
+
+ufw status
+ufw allow 8004
+
+
+
+/etc/nginx/sites-available/falcon
+ln -s /etc/nginx/sites-available/falcon /etc/nginx/sites-enabled/
+
+/etc/nginx/sites-enabled/
+
+
+
+postgres
+
+ssl, github, oauth2, firewall
+
+
+
+
+1. backend, kutubxonalar, run
+2. service file, check
+3. nginx file
+4. domain check, + ssl
+
+nginx -t
+
+
+certbot --nginx -d xolmomin.falcon-uz.uz
+
+
+celery beat yozish:
+
+[Unit]
+Description=Celery Beat Service
+
+[Service]
+User=root
+WorkingDirectory=/var/www/git/kamron/falcon/backend
+ExecStart=/var/www/git/kamron/falcon/backend/.venv/bin/celery -A root beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+
+
+celery worker:
+
+
+[Unit]
+Description=Celery Worker Service
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/git/kamron/falcon/backend
+ExecStart=/var/www/git/kamron/falcon/backend/.venv/bin/celery -A root worker --loglevel=info
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+celery flower:
+
+[Unit]
+Description=Celery Flower Service
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/git/kamron/falcon/backend
+ExecStart=/var/www/git/kamron/falcon/backend/.venv/bin/celery -A core.celery.app flower  --port=5013
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+/var/www/git/kamron/falcon/backend
+
+/var/www/git/kamron/falcon/backend/.venv/bin/celery -A core.celery.app flower  --port=5013
+
+
+protected content
+telegramdan qilish kerak hammasini a
+
+

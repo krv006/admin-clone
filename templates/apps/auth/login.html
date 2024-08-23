@@ -1,0 +1,159 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#0090c0"/>
+    <meta name="description" content="Login to your account"/>
+    <link rel="icon" href="{% static 'favicon.ico' %}"/>
+    <link rel="apple-touch-icon" href="{% static 'logo192.png' %}"/>
+    <link rel="manifest" href="{% static 'manifest.json' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.css"/>
+    <style>
+        :root {
+            --primary-color: #0090c0;
+            --background-color: #f0f4f8;
+            --card-bg: #fff;
+            --text-color: #333;
+            --input-bg: #fff;
+            --input-border: #ccc;
+            --button-bg: #0090c0;
+            --button-hover-bg: #007bb5;
+            --button-text-color: #fff;
+            --error-color: #db3700;
+            --error-bg: #ffe3e3;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: var(--background-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2em;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 1em;
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+
+        .login-container .error-messages {
+            background: var(--error-bg);
+            color: var(--error-color);
+            padding: 0.75em;
+            border-radius: var(--border-radius);
+            margin-bottom: 1em;
+            text-align: left;
+            border: 1px solid var(--error-color);
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container .input-group {
+            margin-bottom: 1em;
+        }
+
+        .login-container .input-group label {
+            display: block;
+            margin-bottom: 0.5em;
+            color: var(--text-color);
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .login-container .input-group input {
+            width: 100%;
+            padding: 0.75em;
+            border: 1px solid var(--input-border);
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1em;
+            background: var(--input-bg);
+            text-align: left;
+        }
+
+        .login-container .input-group input::placeholder {
+            color: #aaa;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 0.75em;
+            border: none;
+            border-radius: var(--border-radius);
+            background: var(--button-bg);
+            color: var(--button-text-color);
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1em;
+        }
+
+        .login-container button:hover {
+            background: var(--button-hover-bg);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
+</head>
+<body>
+<div class="login-container">
+    <h1>Login</h1>
+
+    {% if messages_error %}
+        <div class="error-messages">
+            {% for message in messages_error %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" name="phone_number" id="phone-mask" class="form-control" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</div>
+<script src="https://unpkg.com/imask"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+<script>
+    $('#phone-mask').inputmask({
+        "mask": "+\\9\\98(99) 999-99-99"
+    });
+    $('#messages-modal').modal('show');
+</script>
+</body>
+</html>
+

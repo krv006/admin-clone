@@ -10,17 +10,17 @@
                     {% for category in categories %}
 
 
-                    <div class="col-md-2 col-4">
-                        <a class="siteCategories--item" href="/explore/9245">
-                            <img alt="{{ category.name }}" height="100"
-                                 src="{{ category.image.url }}"
-                                 width="100"> <br>
-                            <span> {{ category.name }} </span>
-                        </a>
-                    </div>
+                        <div class="col-md-2 col-4">
+                            <a class="siteCategories--item" href="/explore/9245">
+                                <img alt="{{ category.name }}" height="100"
+                                     src="{{ category.image.url }}"
+                                     width="100"> <br>
+                                <span> {{ category.name }} </span>
+                            </a>
+                        </div>
 
                     {% endfor %}
-                
+
                 </div>
             </div>
         </div>
@@ -38,246 +38,30 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/dual-press-rollik-fitness-rolikli-trenajor-qorin-bo-shlig-ini-samarali-mashq-qilish-uchun"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/VYCDtp1pSxAwMH0MLKklsGI6JskJ4VEs8FQHFBnF.jpg.webp"
-                                     width="200" height="200"
-                                     alt="DUAL PRESS ROLLIK Fitness rolikli trenajor, qorin bo'shlig'ini samarali mashq qilish uchun">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    DUAL PRESS ROLLIK Fitness rolikli trenajor, qorin bo'shlig'ini samarali mashq qilish
-                                    uchun
+                    {% for product in products %}
+                        <div class="col-md-3 col-sm-4 col-6">
+                            <div class="productsList--item">
+                                <a href="{% url 'product_detail' product.slug %}" class="productsList--item--link"></a>
+                                <div class="productsList--item--image">
+                                    <img src="{{ product.image_url }}" width="200" height="200"
+                                         alt="{{ product.name }}">
                                 </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 189,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2707
+                                <div class="productsList--item--info">
+                                    <div class="productsList--item--title">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="productsList--item--price">
+                                        <strong class="font-weight-bold">{{ product.price }}</strong>
+                                        <span class="small">so'm</span>
+                                    </div>
+                                    <div class="productsList--item--orders">
+                                        buyurtmalar: {{ product.orders_count }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
 
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/batut-fitnes-va-jamping-uchun-vazn-yo-qotish-uchun-portativ-trambolinlar"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/QQwpQUJijoYbFpasiYF5FoeAgWepoIUB8IDa36MB.jpg.webp"
-                                     width="200" height="200"
-                                     alt="Batut fitnes va jamping uchun, vazn yo'qotish uchun, portativ trambolinlar">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    Batut fitnes va jamping uchun, vazn yo'qotish uchun, portativ trambolinlar
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 659,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2706
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/klassic-galstuk-erkaklar-uchun" class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/Obn8l3aWK0TqW9revJaatYQCYFNAEQaXLnpulcqn.jpg.webp"
-                                     width="200" height="200" alt="Klassic galstuk erkaklar uchun">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    Klassic galstuk erkaklar uchun
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 99,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2703
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/go-zal-ayol-qizlarimiz-uchun-maxsus-kosmetik-toplam"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/TT9eyQFJ7XgEhRNtADmplPIP19de51YSwFr8vZtZ.jpg.webp"
-                                     width="200" height="200"
-                                     alt="Go’zal ayol qizlarimiz uchun maxsus kosmetik toplam.">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    Go’zal ayol qizlarimiz uchun maxsus kosmetik toplam.
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 99,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2686
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/4in1-arabic-parfume-top-xit-atirlar"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/cGniBAtThaGSd3Va7a8OzFscwrgRMjUlK6QN7gkh.jpg.webp"
-                                     width="200" height="200" alt="4in1 Arabic Parfume Top xit atirlar">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    4in1 Arabic Parfume Top xit atirlar
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 109,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2669
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/kushon-drawshe-tonalniy-3ga-1-haylayter-pudra"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/ysd0Yv84EfTcVYIAzhhRupczUmVu3r86MB72TkDK.jpg.webp"
-                                     width="200" height="200" alt="Kushon Drawshe tonalniy 3ga 1 + Haylayter pudra">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    Kushon Drawshe tonalniy 3ga 1 + Haylayter pudra
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 151,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2667
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/2-tasi-birda-bolalar-va-kattalar-uchun-havoli-grusha-va-bolalar-uchun-grafik-lcd-plansheti"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/XaFUcYV59Ther2QKjLWb7t9Cy2wgXpcR3jHnCBeY.jpg.webp"
-                                     width="200" height="200"
-                                     alt="2 tasi birda Bolalar va Kattalar uchun havoli grusha va Bolalar uchun grafik LCD plansheti">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    2 tasi birda Bolalar va Kattalar uchun havoli grusha va Bolalar uchun grafik LCD
-                                    plansheti
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 115,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2666
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <style>
-                        .productsList--item--image {
-                            height: 200px;
-                            object-fit: cover;
-                        }
-                    </style>
-                    <div class="col-md-3 col-sm-4 col-6">
-                        <div class="productsList--item">
-                            <a href="/shop/product/ayolar-va-erkaklar-uchun-2-tasi-birda-top-feromonli-xushbo-ylangan-suvlar-formula-sexy-feromoni"
-                               class="productsList--item--link"></a>
-                            <div class="productsList--item--image">
-                                <img src="https://100k.website.yandexcloud.net/resized/250x250/products/image/bgJB9pwRsfEJraqyXAbBNZ5rPg4Ck7zaeeHVMPHZ.jpg.webp"
-                                     width="200" height="200"
-                                     alt="Ayolar va Erkaklar uchun 2 tasi birda Top Feromonli Xushbo'ylangan suvlar  Formula Sexy feromoni">
-                            </div>
-                            <div class="productsList--item--info">
-                                <div class="productsList--item--title">
-                                    Ayolar va Erkaklar uchun 2 tasi birda Top Feromonli Xushbo'ylangan suvlar Formula
-                                    Sexy feromoni
-                                </div>
-                                <div class="productsList--item--price">
-                                    <strong class="font-weight-bold"> 119,000 </strong>
-
-                                    <span class="small">so'm</span>
-                                </div>
-                                <div class="productsList--item--orders">
-                                    buyurtmalar: 2665
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <style>
                         .productsList--item--image {

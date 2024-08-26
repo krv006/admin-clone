@@ -1,14 +1,14 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 
-from apps.views import HomeListView, ProductListView, ProductDetailDetailView, AdminDashboardView, CustomLoginView, \
+from apps.views import HomeListView, ProductListView, ProductDetailView, AdminDashboardView, CustomLoginView, \
     ProfileView, AdminMarketView, AdminStatisticsView, AdminStreamView, AdminPaymentView
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
 
     path('product/', ProductListView.as_view(), name='product-list-page'),
-    path('product/<int:pk>/', ProductDetailDetailView.as_view(), name='product-detail-page'),
+    path('product/<int:pk>/', ProductDetailView.as_view(), name='product-detail-page'),
 
 # TODO LAZIZBEK AKA
     path('contacts', AdminDashboardView.as_view(), name='contacts'),

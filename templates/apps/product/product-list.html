@@ -6,10 +6,12 @@
         <div class="container border-bottom-4">
             <div class="header_tab_menu">
                 <div class="header_menu" style="overflow: auto">
-                    <a data-request="onFilter" data-request-update="'product/list': '#productsList'"
-                       data-request-data="'category_id': '' "
-                       data-request-success="$(this).parent().find('.btn').removeClass('active'); $(this).addClass('active');"
-                       class="btn btn-default active"> Barchasi </a>
+                    <a href="{% url 'product-list-page' %}"
+                       class="btn btn-default ">Barchasi</a>
+                    {% for category in categories %}
+                        <a href="{% url 'product-list-page' %}?category={{ category.pk }}"
+                           class="btn btn-default "> {{ category.name }} </a>
+                    {% endfor %}
                     {% for product in products %}
                         <a data-request="onFilter" data-request-update="'product/list': '#productsList'"
                            data-request-data="'category_id': '9245' "

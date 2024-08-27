@@ -158,16 +158,26 @@ class OrderCreateView(CreateView, LoginRequiredMixin):
         return super().form_invalid(form)
 
 
+class StreamListView(LoginRequiredMixin, ListView):
+    template_name = 'apps/profile/sections/stream.html'
+    queryset = Stream.objects.all()
+    context_object_name = 'streams'
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+
 class StreamFormView(FormView):
-    template_name = 'apps/profile/sections/market.html'
     form_class = StreamForm
+    template_name = 'apps/profile/sections/market.html'
 
     def form_valid(self, form):
         form.save()
-        return redirect('stream-list')
+        return redirect('stream')
 
     def form_invalid(self, form):
-        return print('error')
+        # If the form is invalid, re-render the form with validation errors
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class StreamDetailView(DetailView):
@@ -179,10 +189,36 @@ class StreamDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['self_stream'] = Stream.objects.filter(product=self.object, owner=self.request.user)
         return context
-    
 
 
-class MarketListView(LoginRequiredMixin, ListView):
+# class StreamOrderView(DetailView, FormView):
+#     form_class = OrderForm
+#     queryset = Stream.objects.all()
+#     template_name = 'apps/trade/product-detail.html'
+#     context_object_name = 'stream'
+#
+#     def form_valid(self, form):
+#         if form.is_valid():
+#             form = form.save(commit=False)
+#             form.stream = self.get_object()
+#             form.user = self.request.user
+#             form.save()
+#             form.product.price -= self.get_object().discount
+#             form.deliver_price = SiteSettings.objects.first().deliver_price
+#         return render(self.request, 'apps/order/product-order.html', {'form': form})
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         product = self.object.product
+#         product.price -= self.object.discount
+#         context['product'] = product
+#         context['deliver_price'] = SiteSettings.objects.first().deliver_price
+#         stream_id = self.kwargs.get('pk')
+#         Stream.objects.filter(pk=stream_id).update(count=F('count') + 1)
+#         return context
+
+
+class AdminMarketView(LoginRequiredMixin, ListView):
     template_name = 'apps/profile/sections/market.html'
     queryset = Category.objects.all()
     context_object_name = 'categories'
@@ -194,3 +230,4 @@ class MarketListView(LoginRequiredMixin, ListView):
             products = products.filter(category__slug=slug)
         data['products'] = products
         return data
+

@@ -45,6 +45,7 @@
         .product-card__details strong {
             color: #333;
         }
+
         .categories {
             display: flex;
             justify-content: space-around;
@@ -153,18 +154,17 @@
         }
     </style>
 
-
     <div class="page-wrapper">
         <main class="page-content">
             <div class="market">
                 <div class="container">
                     <div class="block-info" style="margin-bottom: 1rem; text-align: center;">
                         <span>
-                            Maxsulot reklamasini olish uchun
+                            Maxsulot reklamasini olish uchun 
                             <a href="https://t.me/yuzkabot" target="_blank" rel="noreferrer"
                                style="color: #2F8AF5; text-decoration: none; font-weight: bold;">
                                 @yuzkabot
-                            </a>
+                            </a> 
                             telegram botga ulaning.
                         </span>
                     </div>
@@ -187,7 +187,7 @@
 
                     <div class="categories">
                         <div class="categories-item active">Yangi 🕒</div>
-                        <div class="categories-item">TOP ⭐️</div>
+                        <div class="categories-item">TOP ⭐</div>
                         <div class="categories-item">Zaxira
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg"
@@ -199,12 +199,11 @@
                         <div class="categories-item">Mening maxsulotlarim</div>
                     </div>
 
-
                     <div class="product__cards">
                         {% for product in products %}
                             <div class="card">
                                 <div class="card__img">
-                                    <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </div>
                                 <div class="card__details">
                                     <h2 class="c-red">{{ product.name }}</h2>
@@ -216,11 +215,10 @@
                                     <p>Operator: <strong>Bor</strong></p>
                                     <p>Kreativlar: <a href="#" class="c-blue">Ko‘rsatish</a></p>
                                     <p class="c-red">👉 Reklama posti</p>
-                                    <button id="card__button" class="card__button" data-product-id="{{ product.id }}">
+                                    <button class="card__button" data-product-id="{{ product.id }}">
                                         Oqim yaratish
                                     </button>
                                 </div>
-                                </a>
                             </div>
                         {% empty %}
                             <p>Mahsulotlar topilmadi.</p>
@@ -243,7 +241,7 @@
                 <form method="POST" action="{% url 'stream-form' %}" class="form-class">
                     {% csrf_token %}
                     <input name="product" type="hidden" id="hidden_product" value="">
-                    <input name="owner" type="hidden" id="hidden_owner" value="{{ request.user.pk }}">
+                    <input name="user" type="hidden" id="hidden_owner" value="{{ request.user.pk }}">
                     <div class="form-group">
                         <label for="id_title">Oqim nomi</label>
                         <input type="text" name="name" class="form-control" placeholder="Nomi" required id="id_title">
@@ -259,19 +257,28 @@
     </div>
 
     <script>
-        document.getElementById('card__button').addEventListener('click', function () {
-            document.getElementById('modal-content').style.display = 'block';
-            document.getElementById('modal__overlay').style.display = 'block';
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Event listener for opening the modal and setting hidden fields
+            document.querySelectorAll('.card__button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    document.getElementById('hidden_product').value = productId;
+                    document.getElementById('modal-content').style.display = 'block';
+                    document.getElementById('modal__overlay').style.display = 'block';
+                });
+            });
 
-        document.getElementById('close').addEventListener('click', function () {
-            document.getElementById('modal-content').style.display = 'none';
-            document.getElementById('modal__overlay').style.display = 'none';
-        });
+            // Event listener for closing the modal
+            document.getElementById('close').addEventListener('click', function () {
+                document.getElementById('modal-content').style.display = 'none';
+                document.getElementById('modal__overlay').style.display = 'none';
+            });
 
-        document.getElementById('modal__overlay').addEventListener('click', function () {
-            document.getElementById('modal-content').style.display = 'none';
-            document.getElementById('modal__overlay').style.display = 'none';
+            // Close modal when overlay is clicked
+            document.getElementById('modal__overlay').addEventListener('click', function () {
+                document.getElementById('modal-content').style.display = 'none';
+                document.getElementById('modal__overlay').style.display = 'none';
+            });
         });
     </script>
 {% endblock %}

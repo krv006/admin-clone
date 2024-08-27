@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 from django.db import models
 from django.db.models import Model, DateTimeField, UUIDField, CharField, SlugField, ImageField, DecimalField, \
-    ForeignKey, CASCADE, TextChoices, EmailField, TextField, BooleanField, IntegerField, SET_NULL
+    ForeignKey, CASCADE, TextChoices, EmailField, TextField, BooleanField, IntegerField, SET_NULL, FloatField
 
 from django.utils.text import slugify
 
@@ -124,8 +124,8 @@ class Order(CreatedAtBase):
     phone_number = CharField(max_length=50)
     region = CharField(max_length=255, choices=Region.choices)
     product = ForeignKey('apps.Product', CASCADE, to_field='slug', related_name='orders')
-    user = ForeignKey('apps.Product', CASCADE, related_name='user_orders')
-    stream = ForeignKey('apps.Stream', CASCADE, null=True, blank=True, verbose_name='oqim', related_name='orders')
+    user = ForeignKey('apps.User', CASCADE, related_name='orders')
+    stream = ForeignKey('apps.Stream', SET_NULL, null=True, blank=True, default=None, related_name='orders')
 
 
 class Review(Model):
@@ -157,13 +157,13 @@ class District(Model):
 
 class Stream(CreatedAtBase):
     name = CharField(max_length=255)
-    discount = IntegerField(default=0)
+    discount = FloatField()
     count = IntegerField(default=0)
     product = ForeignKey('apps.Product', SET_NULL, null=True, related_name='streams')
     user = ForeignKey('apps.User', CASCADE, related_name='streams')
 
     class Meta:
-        ordering = '-created_at',
+        ordering = '-id',
 
     def str(self):
         return self.name

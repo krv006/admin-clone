@@ -2,13 +2,13 @@ import re
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Max
+from django.db.models import Max, F
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.views.generic import TemplateView
 
 from apps.form import OrderForm, StreamForm
-from apps.models import Category, Product, Stream
+from apps.models import Category, Product, Stream, SiteSettings
 from apps.models import User
 
 
@@ -191,31 +191,31 @@ class StreamDetailView(DetailView):
         return context
 
 
-# class StreamOrderView(DetailView, FormView):
-#     form_class = OrderForm
-#     queryset = Stream.objects.all()
-#     template_name = 'apps/trade/product-detail.html'
-#     context_object_name = 'stream'
-#
-#     def form_valid(self, form):
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.stream = self.get_object()
-#             form.user = self.request.user
-#             form.save()
-#             form.product.price -= self.get_object().discount
-#             form.deliver_price = SiteSettings.objects.first().deliver_price
-#         return render(self.request, 'apps/order/product-order.html', {'form': form})
-#
-#     def get_context_data(self, *args, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         product = self.object.product
-#         product.price -= self.object.discount
-#         context['product'] = product
-#         context['deliver_price'] = SiteSettings.objects.first().deliver_price
-#         stream_id = self.kwargs.get('pk')
-#         Stream.objects.filter(pk=stream_id).update(count=F('count') + 1)
-#         return context
+class StreamOrderView(DetailView, FormView):
+    form_class = OrderForm
+    queryset = Stream.objects.all()
+    template_name = 'apps/product/product-detail.html'
+    context_object_name = 'stream'
+
+    def form_valid(self, form):
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.stream = self.get_object()
+            form.user = self.request.user
+            form.save()
+            form.product.price -= self.get_object().discount
+            form.deliver_price = SiteSettings.objects.first().deliver_price
+        return render(self.request, 'apps/product/product-order.html', {'form': form})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product = self.object.product
+        product.price -= self.object.discount
+        context['product'] = product
+        context['deliver_price'] = SiteSettings.objects.first().deliver_price
+        stream_id = self.kwargs.get('pk')
+        Stream.objects.filter(pk=stream_id).update(count=F('count') + 1)
+        return context
 
 
 class AdminMarketView(LoginRequiredMixin, ListView):
@@ -230,4 +230,3 @@ class AdminMarketView(LoginRequiredMixin, ListView):
             products = products.filter(category__slug=slug)
         data['products'] = products
         return data
-

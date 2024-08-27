@@ -167,3 +167,7 @@ class Stream(CreatedAtBase):
 
     def str(self):
         return self.name
+
+
+class SiteSettings(Model):
+    pass

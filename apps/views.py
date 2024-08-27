@@ -179,6 +179,7 @@ class StreamDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['self_stream'] = Stream.objects.filter(product=self.object, owner=self.request.user)
         return context
+    
 
 
 class MarketListView(LoginRequiredMixin, ListView):

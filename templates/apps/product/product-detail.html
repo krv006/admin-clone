@@ -22,97 +22,83 @@
                         </div>
                     </div>
                 </div>
-
-                <form id="orderForm"
-                      data-price="71000"
-                      data-request="onOrder"
-                      data-request-flash
-                      data-request-success='
-                $(this).find(".needclear").val("");
-                fbq("track", "Purchase", {currency: "uzs", value: $(this).data("price") });
-              '
-                >
-
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="owl-carousel owl-theme content_linear_card_body_indicators">
-                                {% if product.video.all %}
-                                    <div class="item-video">
-                                        <video width="100%" controls>
-                                            <source src="{{ product.video.all.video }}" type="video/mp4">
-                                            Sizning brovseringiz ushbu videoni oqiy olmaydi
-                                        </video>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="owl-carousel owl-theme content_linear_card_body_indicators">
+                            {% if product.video.all %}
+                                <div class="item-video">
+                                    <video width="100%" controls>
+                                        <source src="{{ product.video.all.video }}" type="video/mp4">
+                                        Sizning brovseringiz ushbu videoni oqiy olmaydi
+                                    </video>
+                                </div>
+                            {% else %}
+                                <div class="item">
+                                    <img loading="lazy" class="lazyload"
+                                         src="https://100k.uz/themes/stock/assets/img/loading.gif"
+                                         data-src="{{ product.images.first.image.url }}" alt="card"/>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="productShop d-none d-md-block d-lg-block d-xl-block mt-4">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <a href="/store/103"><img
+                                            src="https://100k.uz/themes/stock/assets/img/d-avatar.png"
+                                            alt="clothes"/></a>
+                                </div>
+                                <div class="col pl-3">
+                                    <a href="/store/103"> Greatstuff shop </a>
+                                    <div class="text-warning">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
                                     </div>
-                                {% else %}
-                                    <div class="item">
-                                        <img loading="lazy" class="lazyload"
-                                             src="https://100k.uz/themes/stock/assets/img/loading.gif"
-                                             data-src="{{ product.images.first.image.url }}" alt="card"/>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="productShop d-none d-md-block d-lg-block d-xl-block mt-4">
-                                <div class="row align-items-center">
-                                    <div class="col-2">
-                                        <a href="/store/103"><img
-                                                src="https://100k.uz/themes/stock/assets/img/d-avatar.png"
-                                                alt="clothes"/></a>
-                                    </div>
-                                    <div class="col pl-3">
-                                        <a href="/store/103"> Greatstuff shop </a>
-                                        <div class="text-warning">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <a href="/store/103" class="sk-btn sk-btn--hover">Do'konning sahifasi</a>
-                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="/store/103" class="sk-btn sk-btn--hover">Do'konning sahifasi</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="orderFormSection" class="col-md-6 pl-md-4 mb-4">
-                            <div class="orderForm sk-form d-flex flex-column justify-content-between"
-                                 style="min-height:100%;">
-                                <div>
-                                    <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection"> Buyurtma
-                                        berish</a></h2>
+                    <div id="orderFormSection" class="col-md-6 pl-md-4 mb-4">
+                        <div class="orderForm sk-form d-flex flex-column justify-content-between"
+                             style="min-height:100%;">
+                            <div>
+                                <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection"> Buyurtma
+                                    berish</a></h2>
 
-                                    <p class="mb-3"> Mahsulot narxi: <strong
-                                            class="pricetag position-price2">{{ product.price }} so'm</strong></p>
+                                <p class="mb-3"> Mahsulot narxi: <strong
+                                        class="pricetag position-price2">{{ product.price }} so'm</strong></p>
 
-                                    <div class="alert alert-info">
-                                        <strong>Yetqazib berish mutlaqo bepul</strong>
-                                        tuman markazidagi qabul qilish punktigacha.
-                                        To'lovni mahsulotni olgandan so'ng amalga oshirasiz.
+                                <div class="alert alert-info">
+                                    <strong>Yetqazib berish mutlaqo bepul</strong>
+                                    tuman markazidagi qabul qilish punktigacha.
+                                    To'lovni mahsulotni olgandan so'ng amalga oshirasiz.
 
-                                    </div>
                                 </div>
-
+                            </div>
+                            <form method="post" action="{% url 'product-order' product.pk %}">
+                                {% csrf_token %}
                                 <div class="my-3">
-                                    <input type="hidden" name="product_id" value="2715"/>
-                                    <input type="hidden" name="stream_id" value=""/>
-
-                                    <input type="hidden" name="product_item_id" value="2850"/>
-
+                                    <input type="hidden" name="product" value="{{ product.pk }}"/>
                                     <div class="form-group">
-                                        <input class="form-control needclear" name="client_full_name"
+                                        <input class="form-control needclear" name="name"
                                                placeholder="Ismingiz" type="text"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <input class="my-phone-mask form-control needclear" name="customer_phone"
-                                               id="customer_phone" placeholder="Telefon raqamingiz" type="text"/>
+                                        <input class="my-phone-mask form-control needclear" name="phone_number"
+                                               id="phone_number" placeholder="Telefon raqamingiz" type="text"/>
                                     </div>
 
                                     <div id="partialCountryState">
                                         <div class="form-group">
-                                            <select required class="form-control" name="region_id">
-                                                <option value="" selected="selected">Hududni tanlang ⬇</option>
+                                            <select required class="form-control" name="region">
+                                                <option value="" selected="selected">Hududni tanlang ⬇️</option>
                                                 <option value="13">Toshkent shahri</option>
                                                 <option value="12">Andijon</option>
                                                 <option value="11">Buxoro</option>
@@ -142,15 +128,18 @@
                                                     Buyurtma berish
                                                 </button>
                                             </div>
-                                        </div>
+                            </form>
 
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
-                    </div>
 
-                </form>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
             </div>
 
             <div class="container">

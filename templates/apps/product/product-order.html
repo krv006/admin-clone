@@ -1,0 +1,169 @@
+{% extends 'apps/include_base/base.html' %}
+
+{% load humanize %}
+{% block body %}
+    <main class="client-template">
+        <section class="main">
+            <div class="container">
+                <div class="content p-4 text-center">
+                    <div class="text-center1">
+                        <img style="width: 50px" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Accept.svg"
+                             alt="">
+                    </div>
+                    <br>
+
+                    <h4> Arizangiz qabul qilindi! </h4>
+                    <p>Batafsil ma'lumot uchun operator yaqin vaqt ichida siz bilan aloqaga chiqadi. </p>
+                    <p>Iltimos, telefoningiz yoqilgan holda bo'lsin!</p>
+
+                    <br>
+                    <div id="checkoutForm">
+                        <table class="table" style="margin-bottom: 0px">
+                            <thead>
+                            <tr class="text-left">
+                                <th>Mahsulot</th>
+                                <th>Summa</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-left">
+                                <th style="font-size: 18px; color: green"> {{ product_name }}: 1 ta</th>
+                                <td style="font-size: 18px; color: green"> {{product_price }} so'm</td>
+                            </tr>
+                            <tr class="text-left" style="font-size: 18px; font-weight: bold">
+                                <td> Yetqazib berish summasi:</td>
+                                <td> Bepul, faqat tuman markazigacha</td>
+                            </tr>
+                            <tr class="text-center">
+                                <td colspan="3">
+                                    <strong style="font-size: 20px; color: red">
+                                        Jami <br>
+                                         {{product_price }}so'm
+                                    </strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="related-products">
+                    <div class="row">
+                        {% for product in products %}
+                            <div class="col-md-3 col-sm-4 col-6">
+                                <div class="productsList--item">
+                                    <div class="productsList--item--image">
+                                        <img src="{{ product.images.first.image.url }}"
+                                             alt="Robot kamera Holdor">
+                                    </div>
+                                    <div class="productsList--item--info">
+                                        <div class="productsList--item--title">
+                                            {{ product.name }}
+                                        </div>
+                                        <div class="productsList--item--price">
+                                            <strong class="font-weight-bold">{{ product.price }}</strong>
+                                            <span class="small"> so'm </span>
+                                        </div>
+                                        <br>
+
+                                        <button data-request="onAddProduct"
+                                                data-request-update="'product/checkout-form': '#checkoutForm'"
+                                                data-request-data="'product_id': {{ product.id }}"
+                                                data-attach-loading=""
+                                                data-request-flash="" data-request-success="$(this).addClass('d-none')"
+                                                class="productsList__btn btn btn-primary sk-btn sk-btn--primary sk-btn--block sk-btn--lg">
+                                            Zakazga qo'shish
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+            </div>
+        </section>
+
+        <style>
+            body {
+            }
+
+            .productsList__btn {
+                padding: 3px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .productsList--item--image img {
+                width: 100%;
+            }
+
+            .related-products .content_linear_card_header {
+                border-bottom: 1px solid #ddd;
+            }
+
+            .content {
+                background-color: #ecf0f1;
+                padding-top: 50px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .productsList--item--info {
+                padding: 0.45rem;
+            }
+
+            .content p {
+                font-size: 16px;
+            }
+
+            .image-button a {
+                border: 1px solid #fff;
+            }
+
+            .image-button a:hover, .image-button a:active, .image-button a:focus {
+                background: #fff !important;
+                border: 1px solid #ddd;
+            }
+
+            .table td, .table th {
+                padding: 5px;
+            }
+
+            .content_linear_card ul {
+                list-style: none;
+                margin-left: 10px;
+            }
+
+            .content_linear_card_info_text p {
+                font-size: 19px;
+                line-height: inherit;
+            }
+        </style>
+    </main>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        // Agar siz Ajax yoki fetch bilan so'rovlar yuborayotgan bo'lsangiz
+        $.ajaxSetup({
+            headers: {"X-CSRFToken": csrftoken}
+        });
+    </script>
+{% endblock %}

@@ -2,7 +2,8 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from apps.views import HomeListView, ProductListView, ProductDetailView, AdminDashboardView, CustomLoginView, \
-    ProfileView, AdminMarketView, AdminStatisticsView, AdminStreamView, AdminPaymentView
+    ProfileView, MarketListView, AdminStatisticsView, AdminStreamView, AdminPaymentView, OrderCreateView, \
+    StreamFormView
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
@@ -16,9 +17,14 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
     path('admin1/profile', ProfileView.as_view(), name='profile'),
     path('admin1/', AdminDashboardView.as_view(), name='dashboard'),
-    path('admin1/market', AdminMarketView.as_view(), name='market'),
+    path('admin1/market', MarketListView.as_view(), name='market'),
     path('admin1/statistics', AdminStatisticsView.as_view(), name='statistics'),
     path('admin1/stream', AdminStreamView.as_view(), name='stream'),
     path('admin1/payment', AdminPaymentView.as_view(), name='payment'),
     path('admin1/profile', ProfileView.as_view(), name='profile'),
+    path('admin1/stream-form', StreamFormView.as_view(), name='stream-form'),
+
+    # TODO IXLOSBEK AKA
+    path('product/<int:pk>/order/', OrderCreateView.as_view(), name='product-order'),
+
 ]

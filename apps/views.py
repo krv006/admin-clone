@@ -4,10 +4,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.views.generic import TemplateView
 
-from apps.models import Category, Product
+from apps.form import OrderForm, StreamForm
+from apps.models import Category, Product, Stream
 from apps.models import User
 
 
@@ -83,10 +84,6 @@ class AdminDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'apps/profile/sections/dashboard.html'
 
 
-class AdminMarketView(LoginRequiredMixin, TemplateView):
-    template_name = 'apps/profile/sections/market.html'
-
-
 class AdminStreamView(LoginRequiredMixin, TemplateView):
     template_name = 'apps/profile/sections/stream.html'
 
@@ -129,4 +126,70 @@ class CustomLoginView(TemplateView):
             }
             return render(request, self.template_name, context)
 
+
 # TODO celery bn qivoramiz
+
+
+class ProductDetailDetailView(DetailView):
+    model = Product
+    template_name = 'apps/product/product-detail.html'
+    context_object_name = 'product'
+
+
+class OrderCreateView(CreateView, LoginRequiredMixin):
+    form_class = OrderForm
+    template_name = 'apps/product/product-order.html'
+    context_object_name = 'products'
+    queryset = Product.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.all()
+        product = Product.objects.get(pk=self.kwargs.get('pk'))
+        context['product_name'] = product.name
+        context['product_price'] = product.price
+        return context
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+
+class StreamFormView(FormView):
+    template_name = 'apps/profile/sections/market.html'
+    form_class = StreamForm
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('stream-list')
+
+    def form_invalid(self, form):
+        return print('error')
+
+
+class StreamDetailView(DetailView):
+    queryset = Product.objects.all()
+    template_name = 'apps/profile/sections/stream.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['self_stream'] = Stream.objects.filter(product=self.object, owner=self.request.user)
+        return context
+
+
+class MarketListView(LoginRequiredMixin, ListView):
+    template_name = 'apps/profile/sections/market.html'
+    queryset = Category.objects.all()
+    context_object_name = 'categories'
+
+    def get_context_data(self, *args, **kwargs):
+        data = super().get_context_data(*args, **kwargs)
+        products = Product.objects.all()
+        if slug := self.request.GET.get("category"):
+            products = products.filter(category__slug=slug)
+        data['products'] = products
+        return data

@@ -28,8 +28,8 @@
                             </thead>
                             <tbody>
                             <tr class="text-left">
-                                <th style="font-size: 18px; color: green"> {{ product_name }}: 1 ta</th>
-                                <td style="font-size: 18px; color: green"> {{product_price }} so'm</td>
+                                <th style="font-size: 18px; color: green"> {{ order.product.name }}: 1 ta</th>
+                                <td style="font-size: 18px; color: green"> {{ order.product.price }} so'm</td>
                             </tr>
                             <tr class="text-left" style="font-size: 18px; font-weight: bold">
                                 <td> Yetqazib berish summasi:</td>
@@ -39,7 +39,7 @@
                                 <td colspan="3">
                                     <strong style="font-size: 20px; color: red">
                                         Jami <br>
-                                         {{product_price }}so'm
+                                        {{ order.product.price }}so'm
                                     </strong>
                                 </td>
                             </tr>

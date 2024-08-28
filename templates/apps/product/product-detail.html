@@ -1,4 +1,5 @@
 {% extends 'apps/include_base/base.html' %}
+{% load static %}
 
 {% block body %}
     <main class="client-template">
@@ -22,6 +23,16 @@
                         </div>
                     </div>
                 </div>
+
+                {#                <div id="orderForm"#}
+                {#                     data-price="71000"#}
+                {#                     data-request="onOrder"#}
+                {#                     data-request-flash#}
+                {#                     data-request-success='#}
+                {#                        $(this).find(".needclear").val("");#}
+                {#                        fbq("track", "Purchase", {currency: "uzs", value: $(this).data("price") });#}
+                {#                     '#}
+                {#                >#}
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div class="owl-carousel owl-theme content_linear_card_body_indicators">
@@ -62,13 +73,14 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div id="orderFormSection" class="col-md-6 pl-md-4 mb-4">
                         <div class="orderForm sk-form d-flex flex-column justify-content-between"
                              style="min-height:100%;">
                             <div>
-                                <h2 class="h3 font-weight-bold mb-4"><a href="#orderFormSection"> Buyurtma
+                                <h2 class="h3 font-weight-bold mb-4"><a href=""> Buyurtma
                                     berish</a></h2>
 
                                 <p class="mb-3"> Mahsulot narxi: <strong
@@ -95,24 +107,32 @@
                                                id="phone_number" placeholder="Telefon raqamingiz" type="text"/>
                                     </div>
 
+
                                     <div id="partialCountryState">
                                         <div class="form-group">
                                             <select required class="form-control" name="region">
                                                 <option value="" selected="selected">Hududni tanlang ⬇️</option>
-                                                <option value="13">Toshkent shahri</option>
-                                                <option value="12">Andijon</option>
-                                                <option value="11">Buxoro</option>
-                                                <option value="1">Fargona</option>
-                                                <option value="10">Jizzax</option>
-                                                <option value="6">Namangan</option>
-                                                <option value="7">Navoiy</option>
-                                                <option value="8">Qashqadaryo</option>
-                                                <option value="9">Qoraqalpogiston</option>
-                                                <option value="5">Samarqand</option>
-                                                <option value="3">Sirdaryo</option>
-                                                <option value="4">Surxondaryo</option>
-                                                <option value="2">Toshkent viloyati</option>
-                                                <option value="14">Xorazm</option>
+
+
+
+                                                {% for region in regions %}
+                                                    <option value="{{ region.id }}">{{ region.name }}</option>
+                                                {% endfor %}
+                                                {#                                            <option value="toshkent">Toshkent</option>#}
+                                                {#                                            <option value="andijon">Andijon</option>#}
+                                                {#                                            <option value="buxoro">Buxoro</option>#}
+                                                {#                                            <option value="fargona">Fargona</option>#}
+                                                {#                                            <option value="jizzax">Jizzax</option>#}
+                                                {#                                            <option value="namangan">Namangan</option>#}
+                                                {#                                            <option value="navoiy">Navoiy</option>#}
+                                                {#                                            <option value="qashqadaryo">Qashqadaryo</option>#}
+                                                {#                                            <option value="qoraqalpogiston">Qoraqalpogiston</option>#}
+                                                {#                                            <option value="samarqand">Samarqand</option>#}
+                                                {#                                            <option value="sirdaryo">Sirdaryo</option>#}
+                                                {#                                            <option value="surxondaryo">Surxondaryo</option>#}
+                                                {#                                            <option value="toshkent_viloyat">Toshkent viloyati</option>#}
+                                                {#                                            <option value="xorazm">Xorazm</option>#}
+                                                {#                                            #}
                                             </select>
                                         </div>
                                     </div>
@@ -133,13 +153,9 @@
 
                         </div>
 
-
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
-
             </div>
 
             <div class="container">
@@ -154,6 +170,7 @@
             </div>
             <div class="productDesc py-5">
                 <div class="container px-3">
+
 
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="productDescription">
@@ -181,196 +198,75 @@
                 </div>
             </div>
 
-
         </section>
 
-
-        <!-- Modal -->
-        <form data-request-flash data-request="onAddReview"
-              data-request-success="$(this).find('input.form-control').val('')"
-              data-request-update="'product/reviews-list': '#productReviewsList'"
-              class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> Izoh qoldirish </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <footer class="siteFooter mt-auto">
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-lg col-sm-6">
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="/profile" class="nav-link"> Mening kabinetim </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="modal-body">
 
-                        <input type="hidden" name="product_id" value="2715">
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Ismingiz</label>
-                            <input type="text" name="author" class="form-control" id="exampleInputEmail1"
-                                   placeholder="Ismingizni kiriting">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Izohingiz</label>
-                            <textarea name="text" placeholder="Izohingizni kiriting"
-                                      class="form-control" id="exampleInputPassword1"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="rating5" value="5"
-                                       checked>
-                                <label class="form-check-label" for="rating5">
-                                    Ajoyib
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
-                                <label class="form-check-label" for="rating4">
-                                    Yaxshi
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
-                                <label class="form-check-label" for="rating3">
-                                    Qoniqarli
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
-                                <label class="form-check-label" for="rating2">
-                                    Yomon
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
-                                <label class="form-check-label" for="rating1">
-                                    Juda yomon
-                                </label>
-                            </div>
-                        </div>
-
-
+                    <div class="col-lg col-sm-6">
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="/pages/about" class="nav-link"> Biz haqimizda </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-primary">Izoh qoldirish</button>
+
+                    <div class="col-lg col-sm-6">
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="/pages/contacts" class="nav-link"> Aloqa uchun </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg col-sm-6">
+                        <ul class="nav flex-column">
+                            <li>
+                                <a href="/pages/privacy-policy" target="_blank" class="nav-link">Ommaviy oferta</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </form>
+            <div>
+                <div class="container py-2">
+                    <div class="row">
+                        <div class="col-auto">
+                            2016-2021 - 100K.UZ
+                        </div>
+                        <div class="col"></div>
+                        <div class="col-auto">
+                            Barcha huquqlar himoyalangan
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-        <style>
-            .form-group .btn-danger {
-                background-color: #d8d8d8;
-                color: black;
-            }
-
-            .position-btn-group {
-                row-gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .position-btn {
-                font-size: 14px;
-                padding: 5px;
-                background-color: white !important;
-                color: #0b2e13 !important;
-                border: 1px solid rgba(0, 0, 0, 0.2) !important;
-                box-shadow: none !important;
-                font-weight: 500;
-            }
-
-            .position-btn.active {
-                border: 2px solid #0b2e13 !important;
-                background-color: #eee !important;
-            }
-
-
-            .siteFooter .container, .topLine {
-                display: none;
-            }
-
-            /* hide search and center logo on mobile */
-            @media (max-width: 767px) {
-                .col-logo {
-                    flex: 1 0 auto;
-                    text-align: center;
-                }
-
-                .col-search {
-                    display: none !important;
-                }
-            }
-
-        </style>
+        <!-- Modal -->
+        {# The modal code here was commented out. Uncomment and complete if needed #}
 
     </main>
 
-    <footer class="siteFooter mt-auto">
-        <div class="container py-4">
-            <div class="row">
-                <div class="col-lg col-sm-6">
-                    <ul class="nav flex-column">
-                        <li>
-                            <a href="/profile" class="nav-link"> Mening kabinetim </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg col-sm-6">
-                    <ul class="nav flex-column">
-                        <li>
-                            <a href="/pages/about" class="nav-link"> Biz haqimizda </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg col-sm-6">
-                    <ul class="nav flex-column">
-                        <li>
-                            <a href="/pages/contacts" class="nav-link"> Aloqa uchun </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg col-sm-6">
-                    <ul class="nav flex-column">
-                        <li>
-                            <a href="/pages/privacy-policy" target="_blank" class="nav-link">Ommaviy oferta</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="container py-2">
-                <div class="row">
-                    <div class="col-auto">
-                        2016-2021 - 100K.UZ
-                    </div>
-                    <div class="col"></div>
-                    <div class="col-auto">
-                        Barcha huquqlar himoyalangan
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script src="https://kit.fontawesome.com/43236b6dfa.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/imask"></script>
-
     <script src="https://100k.uz/themes/stock/assets/js/bundle.js"></script>
     <script src="https://100k.uz/themes/stock/assets/lazysizes/lazysizes.min.js"></script>
     <script src="https://100k.uz/themes/stock/assets/owlcarousel/owl.carousel.min.js"></script>
-    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
-    <script src="https://100k.uz/themes/stock/assets/js/custom.js"></script>
-    <script src="/modules/system/assets/js/framework-extras.js"></script>
-    <link rel="stylesheet" property="stylesheet" href="/modules/system/assets/css/framework-extras.css">
+    <script src="{% static 'apps/jquery.inputmask.bundle.js' %}"></script>
+    <script src="{% static 'apps/custom.js' %}"></script>
+    <script src="{% static 'apps/framework-extras.js' %}"></script>
+    <link rel="stylesheet" property="stylesheet" href="{% static 'apps/framework-extras.css' %}">
+
     <script>
         $(".owl-carousel").owlCarousel({
             items: 1,
@@ -381,8 +277,9 @@
             autoplayTimeout: 5000,
             autoplayHoverPause: true,
         });
+
         let inputs = document.querySelectorAll(".position-btn input");
-        const price1 = document.querySelector(".position-price1")
+        const price1 = document.querySelector(".position-price1");
         const price2 = document.querySelector(".position-price2");
 
         inputs.forEach(input => {
@@ -392,6 +289,30 @@
                 price1.innerHTML = `${price} so'm`;
                 price2.innerHTML = `${price} so'm`;
             });
-        })
+        });
+    </script>
+
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        // Agar siz Ajax yoki fetch bilan so'rovlar yuborayotgan bo'lsangiz
+        $.ajaxSetup({
+            headers: {"X-CSRFToken": csrftoken}
+        });
     </script>
 {% endblock %}

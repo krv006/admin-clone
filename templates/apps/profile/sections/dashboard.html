@@ -19,7 +19,13 @@
                         <h2>0 bonus</h2>
                         <div class="space-b"><p>Tahminiy balans: 0 bonus</p><h4>100k</h4></div>
                     </div>
-                    <div class="statistics"></div>
+
+                    <div class="statistics"><a class="statistics-card" href="{% url 'product-archived' %}">
+                        <div class="bg-shape" style="--shape-color: #830D29;"></div>
+                        <div class="statistics-card__content"><p class="count">{{ orders.count }}</p>
+                            <p class="title">Arxivlandi</p></div>
+                    </a></div>
+
                     <div class="category__cards"><a
                             href="https://telegra.ph/100kuz-Adminlar-uchun-qollanma-11-15"
                             class="category__card" target="_blank" rel="noreferrer">
@@ -120,4 +126,3 @@
         </main>
     </div>
 {% endblock %}
-

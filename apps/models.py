@@ -124,8 +124,6 @@ class Order(CreatedAtBase):
     phone_number = CharField(max_length=50)
     region = CharField(max_length=255, choices=Region.choices)
     product = ForeignKey('apps.Product', CASCADE, to_field='slug', related_name='orders')
-    user = ForeignKey('apps.User', CASCADE, related_name='orders')
-    stream = ForeignKey('apps.Stream', SET_NULL, null=True, blank=True, default=None, related_name='orders')
 
 
 class Review(Model):

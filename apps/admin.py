@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, ImageProduct, Order, Review
+from .models import Category, Product, ImageProduct, Order, Review, Region
 
 
 class ImageProductStackedInline(admin.StackedInline):
@@ -26,6 +26,11 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ['name']
 
 
 @admin.register(Order)

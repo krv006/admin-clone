@@ -7,10 +7,9 @@ from apps.models import Stream
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'phone_number', 'region']
+        fields = ['product', 'name', 'phone_number', 'region']
 
     def __init__(self, *args, **kwargs):
-        # Extract the product from kwargs if it exists
         self.product = kwargs.pop('product', None)
         super().__init__(*args, **kwargs)
 

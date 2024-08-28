@@ -3,7 +3,7 @@ from django.urls import path
 
 from apps.views import HomeListView, ProductListView, ProductDetailView, AdminDashboardView, CustomLoginView, \
     ProfileView, AdminMarketView, AdminStatisticsView, StreamListView, AdminPaymentView, OrderCreateView, \
-    StreamFormView
+    StreamFormView, OrderListView, OrderedListView
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin1/profile', ProfileView.as_view(), name='profile'),
 
     # TODO IXLOSBEK AKA
-    path('product/<int:pk>/order/', OrderCreateView.as_view(), name='product-order'),
-
+    path('product/<int:product_id>/order/', OrderCreateView.as_view(), name='product-order'),
+    path('order/success/<int:order_id>/', OrderListView.as_view(), name='order_success'),
+    path('orders/', OrderListView.as_view(), name='order_list'),
+    path('product/archived', OrderedListView.as_view(), name='product-archived'),
 ]

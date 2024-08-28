@@ -2,13 +2,14 @@ import re
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ValidationError
 from django.db.models import Max, F
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.views.generic import TemplateView
 
 from apps.form import OrderForm, StreamForm
-from apps.models import Category, Product, Stream, SiteSettings
+from apps.models import Category, Product, Stream, SiteSettings, Order, Region
 from apps.models import User
 
 
@@ -63,13 +64,14 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
-    queryset = Product.objects.all()
+    model = Product
     template_name = 'apps/product/product-detail.html'
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+        qs = super().get_context_data(**kwargs)
+        qs["regions"] = Region.objects.all()
+        return qs
 
 
 class ContactView(LoginRequiredMixin, TemplateView):
@@ -134,28 +136,6 @@ class ProductDetailDetailView(DetailView):
     model = Product
     template_name = 'apps/product/product-detail.html'
     context_object_name = 'product'
-
-
-class OrderCreateView(CreateView, LoginRequiredMixin):
-    form_class = OrderForm
-    template_name = 'apps/product/product-order.html'
-    context_object_name = 'products'
-    queryset = Product.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
-        product = Product.objects.get(pk=self.kwargs.get('pk'))
-        context['product_name'] = product.name
-        context['product_price'] = product.price
-        return context
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
 
 
 class StreamListView(LoginRequiredMixin, ListView):
@@ -230,3 +210,67 @@ class AdminMarketView(LoginRequiredMixin, ListView):
             products = products.filter(category__slug=slug)
         data['products'] = products
         return data
+
+
+class OrderCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'apps/product/product-detail.html'
+
+    def get(self, request, product_id, **kwargs):
+        product = get_object_or_404(Product, id=product_id)
+        regions = Region.objects.all()  # Region obyektlarini olish
+        return render(request, self.template_name, {'product': product, 'regions': regions})
+
+    def post(self, request, product_id, **kwargs):
+        product = get_object_or_404(Product, id=product_id)
+        region_id = request.POST.get('region')
+
+        if not region_id:
+            context = {
+                "messages_error": ["Hudud tanlanmagan. Iltimos, hududni tanlang."],
+                "product": product
+            }
+            return render(request, self.template_name, context=context)
+
+        region = get_object_or_404(Region, id=region_id)  # Region obyektini olish
+        order = Order(
+            name=request.POST.get('name'),
+            phone_number=re.sub(r'\D', '', request.POST.get('phone_number')),
+            region=region,  # Region obyektini uzatish
+            product=product
+        )
+        try:
+            order.clean()
+        except ValidationError as e:
+            context = {
+                "messages_error": [e.message],
+                "product": product
+            }
+            return render(request, self.template_name, context=context)
+
+        order.save()
+        return redirect('order_success', order_id=order.id)
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    template_name = 'apps/product/product-order.html'  # Sizning shablon nomi
+    context_object_name = 'orders'
+
+    def get(self, request, order_id, **kwargs):
+        order = get_object_or_404(Order, id=order_id)
+        products = Product.objects.all()
+        return render(request, self.template_name, context={'order': order, 'products': products})
+
+    def get_queryset(self):
+        # Agar siz faqat hozirgi foydalanuvchi buyurtmalarini ko'rsatmoqchi bo'lsangiz
+        return Order.objects.filter(user=self.request.user)
+
+
+class OrderedListView(ListView):
+    model = Order
+    template_name = 'apps/product/product-archived.html'
+    context_object_name = 'orders'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = self.get_queryset()  # or self.queryset
+        return context

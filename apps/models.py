@@ -89,7 +89,7 @@ class Category(BaseSlugModel):
 
 class Product(BaseSlugModel):
     name = CharField(max_length=255)
-    price = DecimalField(max_digits=15, decimal_places=2, default=0)
+    price = models.FloatField()
     short_description = TextField()
     long_description = TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')

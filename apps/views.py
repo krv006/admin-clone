@@ -192,7 +192,7 @@ class StreamOrderView(DetailView, FormView):
         product = self.object.product
         product.price -= self.object.discount
         context['product'] = product
-        context['deliver_price'] = SiteSettings.objects.first().deliver_price
+        # context['deliver_price'] = SiteSettings.objects.first().deliver_price
         stream_id = self.kwargs.get('pk')
         Stream.objects.filter(pk=stream_id).update(count=F('count') + 1)
         return context
